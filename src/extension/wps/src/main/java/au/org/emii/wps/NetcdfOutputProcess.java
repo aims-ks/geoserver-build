@@ -11,8 +11,9 @@ import org.geoserver.catalog.LayerInfo;
 import org.geoserver.config.GeoServer;
 import org.geoserver.config.GeoServerDataDirectory;
 import org.geoserver.platform.GeoServerResourceLoader;
+import org.geoserver.platform.resource.Files;
 import org.geoserver.wps.ProcessDismissedException;
-import org.geoserver.wps.process.FileRawData;
+import org.geoserver.wps.process.ResourceRawData;
 import org.geoserver.wps.resource.WPSResourceManager;
 import org.geotools.jdbc.JDBCDataStore;
 import org.geotools.process.ProcessException;
@@ -55,7 +56,7 @@ public class NetcdfOutputProcess extends AbstractNotifierProcess {
     }
 
     @DescribeResults({
-            @DescribeResult(description = "Zipped netcdf files", meta = {"mimeTypes=application/zip"}, type=FileRawData.class),
+            @DescribeResult(description = "Zipped netcdf files", meta = {"mimeTypes=application/zip"}, type=ResourceRawData.class),
             @DescribeResult(name = "provenance", description = "Provenance document", meta = {"mimeTypes=application/xml"}, type = StringRawData.class)
     })
 
@@ -138,7 +139,7 @@ public class NetcdfOutputProcess extends AbstractNotifierProcess {
             notifySuccess(callbackUrl, callbackParams);
 
             Map result = new HashMap();
-            result.put("result", new  FileRawData(outputFile, "application/zip", "zip"));
+            result.put("result", new ResourceRawData(Files.asResource(outputFile), "application/zip", "zip"));
             result.put("provenance", new StringRawData(provenanceDocument, "application/xml", "xml"));
 
             return result;

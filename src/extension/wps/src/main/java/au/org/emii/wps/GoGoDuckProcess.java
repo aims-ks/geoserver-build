@@ -20,7 +20,7 @@ import org.apache.commons.io.FileUtils;
 import org.geoserver.catalog.Catalog;
 import org.geoserver.config.GeoServer;
 import org.geoserver.platform.GeoServerResourceLoader;
-import org.geoserver.wps.process.FileRawData;
+import org.geoserver.wps.process.ResourceRawData;
 import org.geoserver.wps.resource.WPSResourceManager;
 import org.geotools.process.ProcessException;
 import org.geotools.process.factory.DescribeParameter;
@@ -59,7 +59,7 @@ public class GoGoDuckProcess extends AbstractNotifierProcess {
 
     @DescribeResults({
             @DescribeResult(description="Aggregation result file", meta={"mimeTypes=application/x-netcdf,text/csv",
-                    "chosenMimeType=format"}, type=FileRawData.class),
+                    "chosenMimeType=format"}, type=ResourceRawData.class),
             @DescribeResult(name="provenance", description="Provenance document", meta={"mimeTypes=application/xml"}, type=StringRawData.class)
     })
 
@@ -149,7 +149,7 @@ public class GoGoDuckProcess extends AbstractNotifierProcess {
 
             Map result = new HashMap();
 
-            result.put("result", new  FileRawData(convertedFile.toFile(), mimeType, extension));
+            result.put("result", new ResourceRawData(org.geoserver.platform.resource.Files.asResource(convertedFile.toFile()), mimeType, extension));
             result.put("provenance", new StringRawData(provenanceDocument, "application/xml", "xml"));
 
             notifySuccess(callbackUrl, callbackParams);
