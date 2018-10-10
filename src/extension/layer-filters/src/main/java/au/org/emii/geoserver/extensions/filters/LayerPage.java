@@ -29,12 +29,8 @@ public class LayerPage extends GeoServerSecuredPage {
         table = new GeoServerTablePanel<LayerInfo>("table", provider, true) {
 
             @Override
-            protected Component getComponentForProperty(
-                String id,
-                IModel itemModel,
-                GeoServerDataProvider.Property<LayerInfo> property)
-            {
-                return LayerPageLink.create(property.getName(), id, new LayerInfoModels(itemModel)).getLink();
+            protected Component getComponentForProperty(String s, IModel<LayerInfo> iModel, GeoServerDataProvider.Property<LayerInfo> property) {
+                return LayerPageLink.create(property.getName(), s, new LayerInfoModels(iModel)).getLink();
             }
 
         };

@@ -13,10 +13,13 @@ import au.org.emii.geoserver.extensions.filters.layer.data.FilterConfiguration;
 import au.org.emii.geoserver.extensions.filters.layer.data.FilterMerge;
 import au.org.emii.geoserver.extensions.filters.layer.data.io.FilterConfigurationFile;
 import au.org.emii.geoserver.extensions.filters.layer.data.io.LayerPropertiesReader;
+import org.apache.wicket.Component;
 import org.apache.wicket.PageParameters;
-import org.apache.wicket.markup.html.CSSPackageResource;
+import org.apache.wicket.behavior.Behavior;
+import org.apache.wicket.markup.html.IHeaderResponse;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.request.resource.PackageResourceReference;
 import org.geoserver.web.GeoServerSecuredPage;
 import org.geoserver.web.data.store.DataAccessEditPage;
 import org.geotools.util.logging.Logging;
@@ -28,7 +31,6 @@ import javax.servlet.ServletContext;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class LayerFilterConfigurationPage extends GeoServerSecuredPage {
@@ -60,7 +62,12 @@ public class LayerFilterConfigurationPage extends GeoServerSecuredPage {
 
         try {
             add(getLayerFilterForm());
-            add(CSSPackageResource.getHeaderContribution(LayerFilterConfigurationPage.class, "layer_filters.css"));
+            add(new Behavior() {
+                public void renderHead(Component component, IHeaderResponse response) {
+                    response.renderCSSReference(String.valueOf(new PackageResourceReference(LayerFilterConfigurationPage.class,
+                            "layer_filters.css")));
+                }
+            });
         }
         catch (NamingException e) {
             throw new FilterConfigurationException("Error getting DataSource from JNDI reference", e);
