@@ -14,12 +14,13 @@ import au.org.emii.geoserver.extensions.filters.layer.data.FilterMerge;
 import au.org.emii.geoserver.extensions.filters.layer.data.io.FilterConfigurationFile;
 import au.org.emii.geoserver.extensions.filters.layer.data.io.LayerPropertiesReader;
 import org.apache.wicket.Component;
-import org.apache.wicket.PageParameters;
 import org.apache.wicket.behavior.Behavior;
-import org.apache.wicket.markup.html.IHeaderResponse;
+import org.apache.wicket.markup.head.CssHeaderItem;
+import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
-import org.apache.wicket.request.resource.PackageResourceReference;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.apache.wicket.request.resource.CssResourceReference;
 import org.geoserver.web.GeoServerSecuredPage;
 import org.geoserver.web.data.store.DataAccessEditPage;
 import org.geotools.util.logging.Logging;
@@ -49,9 +50,9 @@ public class LayerFilterConfigurationPage extends GeoServerSecuredPage {
 
     public LayerFilterConfigurationPage(PageParameters parameters) {
         this(
-            parameters.getString(DataAccessEditPage.WS_NAME),
-            parameters.getString(DataAccessEditPage.STORE_NAME),
-            parameters.getString(NAME)
+            parameters.get(DataAccessEditPage.WS_NAME).toString(),
+            parameters.get(DataAccessEditPage.STORE_NAME).toString(),
+            parameters.get(NAME).toString()
         );
     }
 
@@ -64,8 +65,7 @@ public class LayerFilterConfigurationPage extends GeoServerSecuredPage {
             add(getLayerFilterForm());
             add(new Behavior() {
                 public void renderHead(Component component, IHeaderResponse response) {
-                    response.renderCSSReference(String.valueOf(new PackageResourceReference(LayerFilterConfigurationPage.class,
-                            "layer_filters.css")));
+                    response.render(CssHeaderItem.forReference(new CssResourceReference(LayerFilterConfigurationPage.class, "layer_filters.css")));
                 }
             });
         }
