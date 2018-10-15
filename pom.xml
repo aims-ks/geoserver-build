@@ -57,9 +57,9 @@
                 <version>${geoserver.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.geoserver.community</groupId>
-                <artifactId>gs-wps-s3-artifacts</artifactId>
-                <version>${geoserver.version}</version>
+                <groupId>org.apache.wicket</groupId>
+                <artifactId>wicket</artifactId>
+                <version>7.6.0</version>
             </dependency>
             <dependency>
                 <groupId>commons-cli</groupId>
@@ -113,6 +113,10 @@
     </build>
 
      <repositories>
+         <repository>
+             <id>mvnrepository</id>
+             <url>http://mvnrepository.com/artifact/</url>
+         </repository>
         <repository>
             <id>aodn</id>
             <url>http://content.aodn.org.au/repo/maven/</url>
@@ -130,10 +134,6 @@
             <id>unidata-releases</id>
             <name>UNIDATA Releases</name>
             <url>https://artifacts.unidata.ucar.edu/content/repositories/unidata-releases/</url>
-        </repository>
-        <repository>
-            <id>mvnrepository</id>
-            <url>http://mvnrepository.com/artifact/</url>
         </repository>
     </repositories>
 
