@@ -19,12 +19,12 @@ import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.request.resource.CssResourceReference;
 import org.geoserver.web.GeoServerSecuredPage;
 import org.geoserver.web.data.store.DataAccessEditPage;
 import org.geotools.util.logging.Logging;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.xml.sax.SAXException;
 
 import javax.naming.NamingException;
@@ -45,7 +45,6 @@ public class LayerFilterConfigurationPage extends GeoServerSecuredPage {
     private String workspaceName;
     private String dataDirectory;
 
-    @Autowired
     private ServletContext context;
 
     public LayerFilterConfigurationPage(PageParameters parameters) {
@@ -57,6 +56,7 @@ public class LayerFilterConfigurationPage extends GeoServerSecuredPage {
     }
 
     public LayerFilterConfigurationPage(String workspaceName, String storeName, String layerName) {
+        this.context = WebApplication.get().getServletContext();
         this.workspaceName = workspaceName;
         this.storeName = storeName;
         this.layerName = layerName;
