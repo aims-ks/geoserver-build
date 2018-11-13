@@ -42,8 +42,8 @@
                                 <excludes>
                                     <exclude>WEB-INF/lib/slf4j*.jar</exclude>
                                     <exclude>WEB-INF/lib/log4j*.jar</exclude>
-                                    <exclude>WEB-INF/lib/gwc-*.jar</exclude>
-                                    <exclude>WEB-INF/lib/*-gwc-*.jar</exclude>
+                                    <!--<exclude>WEB-INF/lib/gwc-*.jar</exclude>-->
+                                    <!--<exclude>WEB-INF/lib/*-gwc-*.jar</exclude>-->
                                 </excludes>
                         </overlay>
                     </overlays>
